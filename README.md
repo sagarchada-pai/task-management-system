@@ -45,33 +45,26 @@ A full-stack task management application built with Vue 3 (TypeScript) and FastA
 
 ### Backend
 - **Framework**: FastAPI (Python 3.13+)
-- **Database**: SQLite (Development) / PostgreSQL (Production)
-- **ORM**: SQLAlchemy 2.0
-- **Authentication**: JWT
+- **Database**: SQLite with SQLAlchemy ORM
+- **Authentication**: JWT (JSON Web Tokens)
 - **Data Validation**: Pydantic v2
 - **Migrations**: Alembic
 - **API Documentation**: OpenAPI (Swagger UI & ReDoc)
 
 ## 📋 Prerequisites
 
-### For Development
 - Node.js 18+ (for frontend)
 - Python 3.13+ (for backend)
 - npm or yarn
 - SQLite (included with Python)
 - Git
 
-### For Production (Optional)
-- PostgreSQL
-- Nginx or similar web server
-- Domain with SSL certificate
-
 ## 🚀 Quick Start
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/task-management-system.git
+git clone https://github.com/sagarchada-pai/task-management-system.git
 cd task-management-system
 ```
 
@@ -100,10 +93,10 @@ pip install -r requirements.txt
    ALGORITHM=HS256
    ACCESS_TOKEN_EXPIRE_MINUTES=30
    
-   # Database
+   # Database (SQLite)
    DATABASE_URL=sqlite:///./sql_app.db
    
-   # CORS
+   # CORS (for frontend development)
    FRONTEND_URL=http://localhost:5173
    ```
 
@@ -152,9 +145,6 @@ npm install
 Access these when the backend server is running:
 - **Swagger UI**: http://localhost:8000/docs
 - **ReDoc**: http://localhost:8000/redoc
-
-### Frontend Documentation
-Check the frontend's `README.md` for component documentation and development guidelines.
 
 ## 🏗 Project Structure
 
@@ -206,7 +196,6 @@ npm run test:unit
 1. Update `.env` for production:
    ```env
    ENVIRONMENT=production
-   DATABASE_URL=postgresql://user:password@localhost:5432/yourdb
    SECRET_KEY=your-strong-secret-key
    ```
 
@@ -220,6 +209,8 @@ npm run test:unit
    gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app
    ```
 
+   > **Note**: For production, consider using a more robust database like PostgreSQL. Update the `DATABASE_URL` in your `.env` file if you switch to a different database.
+
 ### Frontend (Production)
 1. Build for production:
    ```bash
@@ -229,12 +220,39 @@ npm run test:unit
 
 2. Deploy the `dist` directory to your preferred static file hosting service.
 
-### Using Docker (Full Stack)
+### Using Docker (Optional)
 
-1. Create a `docker-compose.prod.yml` file in the project root.
-2. Run:
+1. Create a `docker-compose.yml` file in the project root with the following content:
+   ```yaml
+   version: '3.8'
+   
+   services:
+     backend:
+       build: 
+         context: ./backend
+         dockerfile: Dockerfile
+       ports:
+         - "8000:8000"
+       environment:
+         - ENVIRONMENT=production
+         - SECRET_KEY=your-secret-key-here
+         - DATABASE_URL=sqlite:////app/sql_app.db
+       volumes:
+         - ./sql_app.db:/app/sql_app.db
+   
+     frontend:
+       build:
+         context: ./frontend
+         dockerfile: Dockerfile
+       ports:
+         - "5173:80"
+       depends_on:
+         - backend
+   ```
+
+2. Build and start the containers:
    ```bash
-   docker-compose -f docker-compose.prod.yml up --build -d
+   docker-compose up --build -d
    ```
 
 ## 🤝 Contributing
@@ -295,7 +313,7 @@ Before you begin, ensure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/task-management-system.git
+git clone https://github.com/sagarchada-pai/task-management-system.git
 cd task-management-system/backend
 ```
 
@@ -403,12 +421,7 @@ pytest --cov=app --cov-report=term-missing
    pip install gunicorn uvicorn[standard]
    ```
 
-2. Update your `.env` file for production:
-   ```env
-   ENVIRONMENT=production
-   SECRET_KEY=your-strong-secret-key
-   DATABASE_URL=postgresql://user:password@localhost:5432/yourdb
-   ```
+2. Update your `.env` file for production with your database credentials if you're using a different database than SQLite.
 
 3. Start the production server:
    ```bash
