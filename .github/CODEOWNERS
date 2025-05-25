@@ -1,0 +1,10 @@
+# Default owners for everything in the repo
+*       @sagarchada-pai
+
+# Specific owners for certain paths
+/frontend/  @sagarchada-pai
+/backend/   @sagarchada-pai
+
+# Require review from security team for security-related files
+/SECURITY.md @sagarchada-pai
+/backend/app/core/security.py @sagarchada-pai

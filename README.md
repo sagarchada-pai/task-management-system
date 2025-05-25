@@ -1,6 +1,39 @@
-# Task Management System
+# 🚀 Task Management System - Developer Onboarding
+
+> **Note to Developers:** This is a template repository for the Task Management System. Please fork this repository to your own GitHub account and create feature branches from there.
 
 A full-stack task management application built with Vue 3 (TypeScript) and FastAPI (Python). This application provides a complete solution for managing projects, tasks, and team collaboration with a modern, responsive interface.
+
+## 👋 Getting Started
+
+### For New Developers
+1. **Fork this repository** to your GitHub account
+2. **Clone your forked repository** to your local machine
+3. **Create a new branch** for your feature or bug fix:
+   ```bash
+   git checkout -b feature/your-feature-name
+   # or
+   git checkout -b bugfix/description-of-fix
+   ```
+4. **Make your changes** and commit them with clear messages
+5. **Push your changes** to your forked repository
+6. **Create a Pull Request** to the original repository
+
+### Working with Issues
+- Check the [Issues](https://github.com/sagarchada-pai/task-management-system/issues) tab for tasks to work on
+- Comment on an issue to let others know you're working on it
+- Reference the issue number in your commit messages (e.g., "Fix #123: Update user authentication")
+
+### Code Style & Standards
+- Follow existing code style and patterns
+- Write clear commit messages
+- Include tests for new features
+- Update documentation when making changes
+
+### Need Help?
+- Check the [Documentation](#-documentation) section below
+- Open an issue if you find a bug or have questions
+- Ask for code reviews from team members
 
 ## 🌟 Features
 
