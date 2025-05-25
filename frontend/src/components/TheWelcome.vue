@@ -5,11 +5,41 @@ import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
+import { ref, computed } from 'vue'
 
 const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
+
+// Bug 1: Undefined function that will cause an error when clicked
+const handleClick = () => {
+  // This function is called but not defined
+  nonExistentFunction()
+}
+
+// Bug 2: Computed property that creates an infinite loop
+const count = ref(0)
+const buggyComputed = computed(() => {
+  // This will cause an infinite loop
+  count.value++
+  return count.value
+})
 </script>
 
 <template>
+  <!-- Bug 3: Broken image that won't load -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <img src="/non-existent-image.png" alt="Broken image" style="max-width: 100%; height: auto;">
+  </div>
+  
+  <!-- Bug 4: Button with undefined function -->
+  <div style="text-align: center; margin: 20px 0;">
+    <button @click="handleClick" style="padding: 10px 20px; background-color: #ff4444; color: white; border: none; border-radius: 4px; cursor: pointer;">
+      Click me to trigger an error
+    </button>
+  </div>
+  
+  <!-- Bug 5: Style that breaks the layout -->
+  <div style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; background-color: red; z-index: 9999;"></div>
+  
   <WelcomeItem>
     <template #icon>
       <DocumentationIcon />
@@ -17,7 +47,8 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
     <template #heading>Documentation</template>
 
     Vue’s
-    <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
+    <!-- Bug 6: Broken link -->
+    <a href="javascript:void(0)" @click="nonExistentFunction()">official documentation</a>
     provides you with all information you need to get started.
   </WelcomeItem>
 
